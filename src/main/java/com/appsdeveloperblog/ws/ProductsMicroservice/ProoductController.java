@@ -10,8 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/produtos")
 public class ProoductController {
+
+    private final ProductService service;
+
+    public ProoductController(ProductService service) {
+        this.service = service;
+    }
+
     @PostMapping
     public ResponseEntity<String> createProduct (@RequestBody CreateProductRestModel product){
-        return ResponseEntity.status(HttpStatus.CREATED).body("");
+
+        String productId = service.createProduct(product);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("Criado com sucesso");
     }
 }
